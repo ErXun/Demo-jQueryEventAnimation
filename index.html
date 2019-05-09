@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>jQueryEventAnimation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <div class="content">
+     <h2>珠宝首饰</h2>
+     <div class="shop clearfix">
+       
+       <div class="list">
+          <div id="del">删除</div>
+          <div class="info">
+           <img src="//picsum.photos/200/200/?image=1" alt="">
+           <p>藏美千足金</p>
+           <p id="number">￥1699.00</p>
+          </div>
+       </div>
+       
+       <div class="list">
+         <div id="del">删除</div>
+          <div class="info">
+           <img src="//picsum.photos/200/200/?image=2" alt="">
+           <p>和田玉</p>
+           <p id="number">￥1699.00</p>
+          </div>
+       </div>
+       
+       <div class="list">
+         <div id="del">删除</div>
+          <div class="info">
+           <img src="//picsum.photos/200/200/?image=3" alt="">
+           <p>路路通吊坠</p>
+           <p id="number">￥1699.00</p>
+          </div>
+       </div>
+       
+     </div>
+   <div class="btn">
+      <button id="add">添加</button>
+      <button id="edit">编辑</button>
+   </div>
+  </div>
+</main>
+<script>
+function getShopHtml(e){
+  var html = '';
+  html += '<div class="list">';
+  html += '<div id="del">删除</div>';
+  html += '<div class="info">';
+  html += '<img src="'+e.img+'" alt="">';
+  html += '<p>'+e.name+'</p>';
+  html += '<p id="number">'+e.price+'</p>';
+  html += '</div>';
+  html += '</div>';
+  return html;
+}
+function shopInfo(){
+  var results = []
+  for(var i=0; i<3 ;i++){
+    var rand = Math.floor(Math.random()*100)
+    var product = {
+      img: '//picsum.photos/200/200/?image='+rand,
+      name: '珂兰 黄金手 猴哥款',
+      price: '￥'+rand
+    }
+    results.push(product)
+  }
+  return results
+}
+$('#add').on('click',function(){
+    $('.content .list').removeClass('hover');
+    $('.content .list #del').removeClass('active');
+    var products = shopInfo()
+    $.each(products,function(idx,e){
+        var html = getShopHtml(e)
+        $('.shop').append(html)
+    })
+})
+$('#edit').on('click',function(){
+    $('.content .list').toggleClass('hover');
+    $('.content .list #del').toggleClass('active');
+})
+$('.content').on('click','.list #del',function(){
+    $(this).parents('.list').remove()
+})
+</script>
+</body>
+</html>
